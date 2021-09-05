@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#195EE6</color>
+    <color name="colorPrimaryDark">#0000CB</color>
+    <color name="colorAccent">#3386EB</color>
+
+    <color name="colorCardView">#FFFFFF</color>
+    <color name="colorBackground">#717171</color>
+    <color name="holderColor">#EFF1F7</color>
+
+    <color name="aqi_good">#54a84f</color>
+    <color name="aqi_satisfactory">#a3c853</color>
+    <color name="aqi_moderate">#C6C004</color>
+    <color name="aqi_poor">#f29c32</color>
+    <color name="aqi_v_poor">#e93f33</color>
+    <color name="aqi_severe">#af2d24</color>
+</resources>

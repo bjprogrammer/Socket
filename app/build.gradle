@@ -1,0 +1,104 @@
+plugins {
+    id 'com.android.application'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+
+    defaultConfig {
+        applicationId app.application_id
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode app.version_code
+        versionName app.version_name
+        multiDexEnabled true
+
+        resConfigs res.configs
+        vectorDrawables.useSupportLibrary = true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    configurations {
+        cleanedAnnotations
+        implementation.exclude group: 'com.intellij' , module:'annotations'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    aaptOptions {
+        cruncherEnabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
+
+    buildFeatures{
+        dataBinding = true
+    }
+}
+
+dependencies {
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.ext_junit
+    androidTestImplementation deps.espresso.core
+
+    // Kotlin
+    implementation deps.kotlin.core_ktx
+
+    //Material Design
+    implementation deps.support.design
+    implementation deps.support.app_compat
+    implementation deps.support.constraint_layout
+
+    // Dagger Hilt
+    implementation deps.dagger.hilt_android
+    implementation deps.dagger.hilt_common
+    implementation deps.dagger.hilt_work
+    kapt(deps.dagger.hilt_compiler)
+    kapt(deps.dagger.hilt_xcompiler)
+
+    //Navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.ui_ktx
+
+    implementation deps.support.multidex
+
+    //socket
+    implementation(deps.socket)
+
+    //rx
+    implementation deps.rx.rxkotlin
+    implementation deps.uniflow
+
+    //Room Db
+    kapt(deps.room.compiler)
+    implementation(deps.room.runtime)
+    implementation(deps.room.ktx)
+
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+}
